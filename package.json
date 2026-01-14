@@ -1,0 +1,21 @@
+{
+  "name": "verity-immersive-reader",
+  "version": "1.0.0",
+  "description": "An AI-driven immersive reading platform replacing genres with emotional filters and reactive WebGL environments.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanillafeisty/verity-immersive-reader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vanillafeisty/verity-immersive-reader/issues"
+  },
+  "homepage": "https://github.com/vanillafeisty/verity-immersive-reader#readme"
+}
