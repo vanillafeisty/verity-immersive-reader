@@ -21,7 +21,7 @@ export default function VerityHome() {
         <h1 className="text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500">
           Verity
         </h1>
-        <p className="text-gray-400 text-lg uppercase tracking-[0.2em]">Read the Vibe</p>
+        <p className="text-gray-400 text-lg uppercase tracking-[0.2em]">Where stories come alive</p>
       </motion.div>
 
       {/* Search Bar (Liquid Glass) */}

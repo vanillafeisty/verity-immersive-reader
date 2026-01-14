@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/vanillafeisty/verity-immersive-reader/issues"
   },
-  "homepage": "https://github.com/vanillafeisty/verity-immersive-reader#readme"
+  "homepage": "https://github.com/vanillafeisty/verity-immersive-reader#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
+  }
 }
