@@ -1,92 +1,73 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Sparkles, Mic, Book as BookIcon } from 'lucide-react';
-import { analyzeVibe } from './vibe-logic';
-import { fetchBooksByVibe } from './book-service';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Search, Sparkles, BookOpen, Ghost, Sun } from 'lucide-react';
 
 export default function VerityHome() {
-  const [search, setSearch] = useState("");
-  const [vibe, setVibe] = useState({ label: "Neutral", color: "rgba(88, 28, 135, 0.2)", glow: "" });
-  const [books, setBooks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(async () => {
-      if (search.length > 5) {
-        setLoading(true);
-        const result = analyzeVibe(search);
-        setVibe(result);
-        const bookResults = await fetchBooksByVibe(result.label);
-        setBooks(bookResults);
-        setLoading(false);
-      }
-    }, 800); // Wait for user to stop typing
-    return () => clearTimeout(timer);
-  }, [search]);
-
   return (
-    <main className="relative min-h-screen w-full bg-[#0a0a0a] text-white overflow-x-hidden transition-colors duration-1000">
+    <main className="min-h-screen bg-[#0a0a0a] p-8 flex flex-col items-center justify-center text-white font-sans">
       
-      {/* Dynamic Background */}
-      <div className="fixed inset-0 z-0">
-         <motion.div 
-          animate={{ backgroundColor: vibe.color }}
-          className="absolute top-[-20%] left-[-10%] w-[100%] h-[100%] rounded-full blur-[150px] opacity-40 transition-colors duration-1000"
-        />
+      {/* Mesh Gradient Background Effect */}
+      <div className="fixed inset-0 z-0 opacity-30 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-900 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-900 rounded-full blur-[120px]"></div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-20 pb-20">
-        <header className="text-center mb-16">
-          <h1 className="text-8xl font-bold tracking-tighter mb-4 italic">Verity</h1>
-          <p className="text-gray-400 tracking-[0.5em] uppercase text-xs">The Future of Sentiment Reading</p>
-        </header>
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="relative z-10 text-center mb-12"
+      >
+        <h1 className="text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500">
+          Verity
+        </h1>
+        <p className="text-gray-400 text-lg uppercase tracking-[0.2em]">Where words come alive</p>
+      </motion.div>
 
-        {/* Search Experience */}
-        <div className="max-w-2xl mx-auto mb-20">
-          <div className={`liquid-glass rounded-full p-2 flex items-center px-8 transition-all duration-700 ${vibe.glow}`}>
-            <Search className="text-gray-500 mr-4" />
-            <input 
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="I want to feel..." 
-              className="bg-transparent border-none outline-none w-full text-xl py-4 placeholder:text-gray-700"
-            />
-            <Mic className="text-gray-500 ml-4 cursor-pointer hover:text-white transition-colors" />
-          </div>
+      {/* Search Bar (Liquid Glass) */}
+      <div className="relative z-10 w-full max-w-2xl p-[1px] rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent mb-12">
+        <div className="bg-black/40 backdrop-blur-xl w-full p-2 rounded-full flex items-center px-6 border border-white/10">
+          <Search className="text-gray-400 mr-3" />
+          <input 
+            type="text" 
+            placeholder="How do you want to feel?" 
+            className="bg-transparent border-none outline-none w-full text-lg py-3 text-white placeholder:text-gray-600"
+          />
+          <Sparkles className="text-purple-400 ml-3 cursor-pointer hover:scale-110 transition-transform" />
         </div>
-
-        {/* The Bookshelf */}
-        <AnimatePresence>
-          {books.length > 0 && (
-            <motion.section 
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
-            >
-              {books.map((book, i) => (
-                <motion.div 
-                  key={book.id}
-                  whileHover={{ y: -10 }}
-                  className="group cursor-pointer"
-                >
-                  <div className="aspect-[2/3] bg-gray-900 rounded-2xl overflow-hidden mb-3 border border-white/10 shadow-2xl relative">
-                    {book.cover ? (
-                      <img src={book.cover} alt={book.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center"><BookIcon className="text-gray-800" /></div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end">
-                      <button className="bg-white text-black rounded-full py-2 text-xs font-bold uppercase tracking-widest">Read Now</button>
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-sm truncate">{book.title}</h3>
-                  <p className="text-gray-500 text-xs truncate">{book.author}</p>
-                </motion.div>
-              ))}
-            </motion.section>
-          )}
-        </AnimatePresence>
       </div>
-    </main>
+
+  {/* Vibe Selection Grid */}
+  <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
+    <VibeCard 
+      icon={<Sun className="text-yellow-400" size={28} />}
+      label="Hopeful" 
+      description="Stories that feel like a sunrise." 
+    />
+    <VibeCard 
+      icon={<Ghost className="text-indigo-400" size={28} />}
+      label="Fearful" 
+      description="Embrace the darkness and the unknown." 
+    />
+    <VibeCard 
+      icon={<BookOpen className="text-emerald-400" size={28} />}
+      label="Mysterious" 
+      description="For the curious mind and seeking heart." 
+    />
+  </div>
+</main>
+  );
+}
+
+function VibeCard({ icon, label, description }: { icon: any, label: string, description: string }) {
+  return (
+    <motion.div 
+      whileHover={{ y: -10, scale: 1.02 }}
+      className="bg-white/5 backdrop-blur-md p-8 rounded-[40px] cursor-pointer border border-white/10 hover:bg-white/10 transition-all"
+    >
+      <div className="mb-4">{icon}</div>
+      <h3 className="text-xl font-semibold mb-2">{label}</h3>
+      <p className="text-gray-400 text-sm">{description}</p>
+    </motion.div>
   );
 }

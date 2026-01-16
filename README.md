@@ -1,6 +1,6 @@
 # 🌌 Verity | The Future of Immersive Reading
 
-![Verity Banner](docs/assets/banner.png)
+![Verity Banner](docs/assets/verity.png)
 
 **Verity** is a  reading platform that abandons rigid book genres for **AI-driven emotional filters**. It transforms the digital reading experience into a multisensory journey using reactive shaders and tactile UI materials.
 
